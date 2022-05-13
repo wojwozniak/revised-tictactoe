@@ -36,7 +36,38 @@ function Game() {
     changePlayer();
   }, gameState);
 
+  const handleWin = () => {
+    window.alert(`Congratulations for player ${currentPlayer}! You won!`);
+  }
+
+  const handleDraw = () => {
+    window.alert("The game ended in a draw!");
+  }
+
   const checkForWinner = () => {
+    let roundWon = false;
+    for (let i = 0; i < WINNING_COMBOS.length; i++) {
+      const winCombo = WINNING_COMBOS[i];
+      let a = gameState[winCombo[0]]
+      let b = gameState[winCombo[1]]
+      let c = gameState[winCombo[2]]
+
+      if ([a, b, c].includes("")) {
+        continue;
+      }
+      if (a === b && b === c) {
+        roundWon = true;
+        break;
+      }
+    }
+    if (roundWon) {
+      setTimeout(() => handleWin(), 500);
+      return;
+    }
+    if (!gameState.includes("")) {
+      setTimeout(() => handleDraw(), 500);
+      return;
+    }
 
   }
 
